@@ -1,0 +1,524 @@
+/* =========================================
+   VK JOYAS - ULTRA MINIMAL CINEMATIC
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-bg: #FFF5F8; /* Rosa pastel muy suave (Perla/Coquette) */
+    --color-text: #2D2D2D; /* Gris oscuro elegante para texto */
+    --color-primary: #FF8BA7; /* Rosa vibrante coquette */
+    --font-heading: 'Fredoka', system-ui, sans-serif;
+}
+
+body, html {
+    width: 100vw;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+
+
+/* =========================================
+   HERO SECTION & VIDEO BACKGROUND
+   ========================================= */
+#hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+    background-color: #000000;
+}
+
+#hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    opacity: 0.8; /* Video natural */
+}
+
+/* Capa oscura sutil para que los textos blancos sean legibles */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.7) 100%);
+    z-index: 1;
+}
+
+/* =========================================
+   CONTENEDOR CENTRAL: LOGO
+   ========================================= */
+.cinematic-center {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+.giant-logo {
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px rgba(255, 139, 167, 0.6), 0 0 40px rgba(255, 139, 167, 0.3);
+    user-select: none;
+    display: inline-block;
+}
+
+/* Animación Letra por Letra */
+.giant-logo span {
+    display: inline-block;
+    opacity: 0;
+    transform: scale(0) translateY(20px);
+    filter: blur(10px);
+    animation: letterPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* Usamos la variable --i declarada en el HTML para retrasar cada letra */
+    animation-delay: calc(0.5s + (var(--i) * 0.15s));
+}
+
+/* =========================================
+   ANIMACIONES CLAVE
+   ========================================= */
+@keyframes letterPop {
+    0% { opacity: 0; transform: scale(0) translateY(20px); filter: blur(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+/* =========================================
+   SCROLL INDICATOR
+   ========================================= */
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+}
+
+.arrow-down {
+    width: 20px;
+    height: 20px;
+    border-right: 3px solid var(--color-primary);
+    border-bottom: 3px solid var(--color-primary);
+    transform: rotate(45deg);
+    margin-top: 10px;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+    40% { transform: translateY(-15px) translateX(-50%); }
+    60% { transform: translateY(-7px) translateX(-50%); }
+}
+
+/* =========================================
+   BOTONES (PRO MAX GLOW)
+   ========================================= */
+.secondary-button {
+    position: relative;
+    background-color: #ffffff;
+    color: var(--color-text);
+    border: 1px solid rgba(255, 139, 167, 0.5);
+    padding: 1rem 3rem;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(255, 139, 167, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.secondary-button::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(45deg, var(--color-primary), #ffb266, #ff8ba7, var(--color-primary));
+    background-size: 300% 300%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.secondary-button:hover::before {
+    opacity: 1;
+    animation: gradientMove 3s ease infinite;
+}
+
+.secondary-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    color: #ffffff;
+    box-shadow: 0 15px 35px rgba(255, 139, 167, 0.4);
+    border-color: transparent;
+    letter-spacing: 1px;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+/* =========================================
+   PANDORA STYLE BENTO COLLAGE
+   ========================================= */
+#pandora-style-section {
+    width: 100vw;
+    background-color: var(--color-bg);
+    padding: 6rem 5vw 2rem 5vw; /* Reducido el padding inferior para acercar a la siguiente sección */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pandora-bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 280px; /* Altura base para las filas */
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1300px;
+}
+
+.pb-item {
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    background: #ffffff;
+}
+
+.pb-item img, .pb-item video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pb-item:hover img, .pb-item:hover video {
+    transform: scale(1.05);
+}
+
+/* Distribución del Bento (Grid Areas) */
+.pb-vid { grid-area: span 2 / span 1; }
+.pb-main { grid-area: span 2 / span 2; }
+.pb-sq1 { grid-area: span 1 / span 1; }
+.pb-sq2 { grid-area: span 1 / span 1; }
+.pb-tall { grid-area: span 2 / span 1; }
+.pb-text { 
+    grid-area: span 1 / span 2; 
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+@media (max-width: 900px) {
+    .pandora-bento {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .pb-item {
+        width: 100%;
+    }
+    .pb-vid { 
+        height: 500px; /* Mantiene el video vertical */
+    }
+    .pb-main { 
+        height: 300px; /* Evita que la segunda foto sea gigantesca */
+    }
+    .pb-sq1, .pb-sq2, .pb-tall {
+        height: 350px;
+    }
+    .pb-text { 
+        height: auto;
+        aspect-ratio: 16 / 9; /* El banner mantiene formato panorámico y no se recorta */
+    }
+}
+
+/* =========================================
+   MAGIA LISTA PARA USAR (DYNAMIC COLLAGE)
+   ========================================= */
+#classic-section {
+    width: 100vw;
+    background-color: var(--color-bg);
+    padding: 2rem 5vw 6rem 5vw; /* Reducido el padding superior para acercar a la sección anterior */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.classic-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 2;
+}
+
+.pro-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.pro-title span {
+    background: linear-gradient(to right, var(--color-primary), #ffb266);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 139, 167, 0.3);
+}
+
+.classic-header p {
+    font-family: 'Quicksand', sans-serif;
+    color: #666666;
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* -- Dynamic Masonry Collage -- */
+.dynamic-collage {
+    column-width: 300px;
+    column-gap: 1.5rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dc-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.dc-item img {
+    width: 100%;
+    height: auto; /* Mantiene la proporción original, cero recortes */
+    display: block;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.5s ease;
+}
+
+.dc-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.collage-wrapper {
+    position: relative;
+    padding-bottom: 3rem;
+    overflow: hidden;
+    transition: max-height 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dynamic-collage {
+        column-width: 250px;
+    }
+}
+@media (max-width: 500px) {
+    .dynamic-collage {
+        column-count: 1;
+    }
+}
+
+/* Efecto difuminado para Load More */
+.collage-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 90%);
+    pointer-events: none; /* No bloquea clics */
+    z-index: 5;
+}
+
+.load-more-container {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+/* =========================================
+   FOOTER ORIGINAL PRO MAX
+   ========================================= */
+.site-footer {
+    width: 100vw;
+    background: linear-gradient(180deg, var(--color-bg) 0%, rgba(255, 230, 237, 1) 100%);
+    padding: 6rem 5vw 4rem 5vw;
+    position: relative;
+    border-top: 1px solid rgba(255, 139, 167, 0.2);
+    overflow: hidden;
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-image-container {
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* Efecto de marco suave para la niña */
+.footer-image-container::before {
+    content: '';
+    position: absolute;
+    top: -10px; left: -10px; right: -10px; bottom: -10px;
+    background: linear-gradient(135deg, var(--color-primary), #ffb266);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.3;
+    filter: blur(20px);
+    animation: rotateGlow 10s linear infinite;
+}
+
+.footer-avatar {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 8px solid #ffffff;
+    box-shadow: 0 15px 35px rgba(255, 139, 167, 0.3);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.footer-image-container:hover .footer-avatar {
+    transform: scale(1.05) rotate(3deg);
+}
+
+.footer-text {
+    flex-grow: 1;
+}
+
+.footer-text h2 {
+    font-size: 2.5rem;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, var(--color-text), var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.footer-text p {
+    font-family: 'Quicksand', sans-serif;
+    color: #666666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer-btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.insta-btn {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+    box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
+}
+
+.insta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(220, 39, 67, 0.5);
+    color: white;
+}
+
+.wa-btn {
+    background: #25D366;
+    color: white;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+}
+
+.wa-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+    color: white;
+}
+
+.copyright {
+    font-size: 0.9rem !important;
+    color: #999999 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Responsive Footer */
+@media (max-width: 900px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .footer-text p {
+        margin: 0 auto 2rem auto;
+    }
+    
+    .footer-links {
+        justify-content: center;
+    }
+}
