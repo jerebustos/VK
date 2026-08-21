@@ -271,6 +271,62 @@ body, html {
 }
 
 /* =========================================
+   HEBILLAS DE PELO (CAROUSEL)
+   ========================================= */
+#hebillas-section {
+    width: 100vw;
+    background-color: var(--color-bg);
+    padding: 4rem 5vw 2rem 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carousel-container {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 15px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem 0; /* Espacio para las sombras */
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-item {
+    flex: 0 0 calc((100% - (15px * 4)) / 5); /* Desktop: 5 items */
+    aspect-ratio: 4/5;
+    border-radius: 20px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.carousel-item:hover {
+    transform: scale(1.02);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .carousel-item {
+        flex: 0 0 calc((100% - 15px) / 2); /* Mobile: 2 items */
+    }
+}
+
+/* =========================================
    MAGIA LISTA PARA USAR (DYNAMIC COLLAGE)
    ========================================= */
 #classic-section {
